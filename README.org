@@ -16,6 +16,6 @@
 
 * Introduction
 
-#+HTML: <img src="docs/images/clover-swirl.png" alt="Clover logo" title="Clover" align="right" />
+#+HTML: <img src="docs/images/clover-swirl.png" alt="Clover logo" title="Clover" align="right" width="150" height="187"/>
 
 Clover is a system for analyzing Debian packages with KLEE.
