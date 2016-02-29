@@ -78,6 +78,11 @@ RUN echo "g++-${GCC_VERSION} hold" | dpkg --set-selections
 WORKDIR ${HOME_DIR}
 USER docker
 
+# Add LLVM IR syntax highlighting for Emacs
+RUN mkdir -p ${HOME_DIR}/.emacs.d/lisp
+ADD misc/llvm-mode.el ${HOME_DIR}/.emacs.d/lisp/
+ADD misc/.emacs ${HOME_DIR}/
+
 # Remove this hardening compiler flag as it's not supported by Clang
 ENV DEB_CFLAGS_STRIP "-fstack-protector-strong"
 ENV DEB_CXXFLAGS_STRIP "-fstack-protector-strong"
