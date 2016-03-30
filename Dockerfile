@@ -101,4 +101,4 @@ RUN bash -c 'source ${HOME_DIR}/build-env && cd $target-${target_version} && CC=
 RUN bash -c 'source ${HOME_DIR}/build-env && cd $target-${target_version} && CC=wllvm CXX=wllvm++ extract-bc $target'
 # # The last command produces ${target}.bc, a single linked LLVM bitcode file
 
-ENTRYPOINT bash -c 'source ${HOME_DIR}/build-env && cd $target-${target_version} && klee -libc=uclibc ${target}.bc -I'
+ENTRYPOINT bash -c 'source ${HOME_DIR}/build-env && cd $target-${target_version} && klee -libc=uclibc --posix-runtime ${target}.bc -I'
