@@ -22,7 +22,7 @@ MAINTAINER Marko Dimjašević <marko@dimjasevic.net>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Add package sources and Stable backports
-RUN echo "deb-src http://httpredir.debian.org/debian stable main" >> /etc/apt/sources.list
+RUN echo "deb-src http://debian.usu.edu/debian stable main" >> /etc/apt/sources.list
 RUN echo "deb http://mirrors.kernel.org/debian jessie-backports main" >> /etc/apt/sources.list
 
 RUN apt-get update
