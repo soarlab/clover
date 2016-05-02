@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export LLVM_VERSION=3.4
+export LLVM_COMPILER=clang
+export LLVM_COMPILER_PATH=/usr/lib/llvm-${LLVM_VERSION}/bin
+export WLLVM_DIR=/usr/local/bin
+
+# dpkg-buildpackage flags
+export DEB_CFLAGS_STRIP="-fstack-protector-strong"
+export DEB_CXXFLAGS_STRIP="-fstack-protector-strong"
+export DEB_OBJCFLAGS_STRIP="-fstack-protector-strong"
+export DEB_OBJCXXFLAGS_STRIP="-fstack-protector-strong"
+
+# Use WLLVM wrappers for CC and CXX
+export CC=wllvm
+export CXX=wllvm++

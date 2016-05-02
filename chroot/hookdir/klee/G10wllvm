@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -x
+
+TMP_DIR=$(mktemp --directory)
+
+ARCHIVE=${TMP_DIR}/wllvm.zip
+apt-get install --yes wget unzip ca-certificates
+wget https://github.com/travitch/whole-program-llvm/archive/master.zip -O $ARCHIVE
+unzip $ARCHIVE -d ${WLLVM_DIR}
+cd ${WLLVM_DIR}
+mv whole-program-llvm-master/* .
+chmod +x wllvm wllvm++ extract-bc

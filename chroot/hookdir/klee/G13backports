@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -x
+
+backports_sources_list="
+
+# Backports
+deb http://mirrors.kernel.org/debian jessie-backports main
+deb-src http://mirrors.kernel.org/debian jessie-backports main"
+
+echo "$backports_sources_list" >> /etc/apt/sources.list
+cat /etc/apt/sources.list
+
+apt-get update

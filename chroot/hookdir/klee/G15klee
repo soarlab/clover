@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -x
+
+# Get and install STP, KLEE and their dependencies
+apt-get install --yes libboost-program-options1.55.0 libgcc1 libstdc++6 minisat libcap2 libffi6 libllvm${LLVM_VERSION} libtinfo5 python python-tabulate
+
+STP_PKG=stp_2.1.1+dfsg-1_amd64.deb
+KLEE_PKG=klee_1.1.0-1_amd64.deb
+wget https://dimjasevic.net/marko/klee/${STP_PKG}
+wget https://dimjasevic.net/marko/klee/${KLEE_PKG}
+dpkg -i ${STP_PKG}
+dpkg -i ${KLEE_PKG}
+rm ${STP_PKG} ${KLEE_PKG}
