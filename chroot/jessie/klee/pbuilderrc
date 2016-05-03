@@ -1,5 +1,13 @@
 #!/bin/bash
 
+DISTRIBUTION=jessie
+BASEPATH=/var/cache/pbuilder/${DISTRIBUTION}.cow
+
+MIRRORSITE=http://debian.usu.edu/debian/
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+HOOKDIR=${SCRIPT_DIR}/hookdir
+
 export LLVM_VERSION=3.4
 export LLVM_COMPILER=clang
 export LLVM_COMPILER_PATH=/usr/lib/llvm-${LLVM_VERSION}/bin
