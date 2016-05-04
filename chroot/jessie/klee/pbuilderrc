@@ -11,7 +11,7 @@ HOOKDIR=${SCRIPT_DIR}/hookdir
 export LLVM_VERSION=3.4
 export LLVM_COMPILER=clang
 export LLVM_COMPILER_PATH=/usr/lib/llvm-${LLVM_VERSION}/bin
-export WLLVM_DIR=/usr/local/bin
+export WLLVM_DIR=/usr/bin
 
 # dpkg-buildpackage flags
 export DEB_CFLAGS_STRIP="-fstack-protector-strong"
