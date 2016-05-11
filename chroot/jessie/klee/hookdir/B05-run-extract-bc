@@ -20,7 +20,8 @@
 
 set -x
 
-cd /tmp/buildd
+# HOME=/tmp/buildd by default
+cd $HOME
 DSC_FILE=$(ls -1 *.dsc)
 BS_NAME=$(basename --suffix=".dsc" ${DSC_FILE})
 PKG_NAME=$(echo ${BS_NAME} | awk -F"_" '{print $1}')
