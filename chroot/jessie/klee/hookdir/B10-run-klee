@@ -28,5 +28,10 @@ PKG_NAME=$(echo ${BS_NAME} | awk -F"_" '{print $1}')
 RULES_PATH=$(find . -path "*/debian/rules")
 DIR=$(dirname $(dirname ${RULES_PATH}))
 cd $DIR
+CRNT_DIR=$(pwd)
 
-klee -libc=uclibc --posix-runtime ${PKG_NAME}.bc
+for f in $(cat $HOME/success); do
+    cd $(dirname $f)
+    klee -max-time=30 -libc=uclibc --posix-runtime $(basename $f).bc
+    cd $CRNT_DIR
+done
