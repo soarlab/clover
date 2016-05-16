@@ -25,9 +25,9 @@ apt-get install --yes clang-${LLVM_VERSION} llvm-${LLVM_VERSION} llvm-${LLVM_VER
 cd /usr/bin
 GCC_VERSION="4.9"
 rm g++-$GCC_VERSION gcc-$GCC_VERSION cpp-$GCC_VERSION
-ln -s clang++-${LLVM_VERSION} g++-$GCC_VERSION
-ln -s clang-${LLVM_VERSION} gcc-$GCC_VERSION
-ln -s clang-${LLVM_VERSION} cpp-$GCC_VERSION
+ln -s wllvm++- g++-$GCC_VERSION
+ln -s wllvm gcc-$GCC_VERSION
+ln -s wllvm cpp-$GCC_VERSION
 
 echo "Block the installation of a new gcc version"
 echo "gcc-${GCC_VERSION} hold" | dpkg --set-selections
