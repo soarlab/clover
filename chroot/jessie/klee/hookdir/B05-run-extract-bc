@@ -20,16 +20,47 @@
 
 set -x
 
+EXTRACT_DIR=$(mktemp --directory)
 # HOME=/tmp/buildd by default
 cd $HOME
-DSC_FILE=$(ls -1 *.dsc)
-BS_NAME=$(basename --suffix=".dsc" ${DSC_FILE})
-PKG_NAME=$(echo ${BS_NAME} | awk -F"_" '{print $1}')
-RULES_PATH=$(find . -path "*/debian/rules")
-DIR=$(dirname $(dirname ${RULES_PATH}))
-cd $DIR
-# This extraction works for a source package that generates a single
-# binary package, but not for a source packages that results in
-# multiple binary packages
-extract-bc ${PKG_NAME}
-ls -1
+
+# The following loop will work as paths in the .llvm_bc header of
+# object files are absolute, hence it does not matter where we extract
+# .deb archives
+for DEB in $(find . -name "*.deb"); do
+    dpkg --extract $DEB $EXTRACT_DIR
+done
+
+# A header consisting of first 4 bytes indicating an ELF object file
+ELF_H=$(head -c 4 /usr/bin/find)
+
+cd $EXTRACT_DIR
+
+for f in $(find . -type f); do
+    SEQ=$(head -c 4 $f)
+    if [ "$SEQ" != "$ELF_H" ]; then continue; fi
+    
+    echo -n "Checking if $f has an llvm_bc section... "
+    if [ "$(objdump -h $f | grep \.llvm_bc | wc -l)" != "0" ] ; then
+        echo "yes"
+	(
+	    BS_NAME=$(basename $f)
+	    DIR_NAME=$(dirname $f)
+	    cd ${DIR_NAME}
+	    extract-bc ${BS_NAME}
+	    if [ $? -eq 0 ] ; then
+		echo "${EXTRACT_DIR}/${DIR_NAME}/${BS_NAME}" >> $HOME/success
+	    else
+		echo "Unable to extract bitcode"
+	    fi
+	)
+    else
+        echo "no"
+    fi
+done
+
+if [ -f $HOME/success ]; then
+    cat $HOME/success
+else
+    echo "No successfully extracted bitcode files"
+fi
