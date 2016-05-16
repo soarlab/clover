@@ -14,11 +14,14 @@ export LLVM_COMPILER_PATH=/usr/lib/llvm-${LLVM_VERSION}/bin
 export WLLVM_DIR=/usr/bin
 
 # dpkg-buildpackage flags
-export DEB_CFLAGS_STRIP="-fstack-protector-strong"
-export DEB_CXXFLAGS_STRIP="-fstack-protector-strong"
-export DEB_OBJCFLAGS_STRIP="-fstack-protector-strong"
-export DEB_OBJCXXFLAGS_STRIP="-fstack-protector-strong"
+STRIP_FLAGS="-fstack-protector-strong -O2"
+export DEB_CFLAGS_STRIP=${STRIP_FLAGS}
+export DEB_CXXFLAGS_STRIP=${STRIP_FLAGS}
+export DEB_OBJCFLAGS_STRIP=${STRIP_FLAGS}
+export DEB_OBJCXXFLAGS_STRIP=${STRIP_FLAGS}
 
 # Use WLLVM wrappers for CC and CXX
 export CC=wllvm
 export CXX=wllvm++
+
+export HOME=/tmp/buildd
